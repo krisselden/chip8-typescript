@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome against localhost, with sourcemaps",
+      "type": "chrome",
+      "request": "launch",
+      "diagnosticLogging": true,
+      "url": "http://localhost:4200/",
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}/dist",
+      "sourceMapPathOverrides": {
+        "chip8.ts": "${workspaceRoot}/src/chip8.ts",
+        "chip8/*": "${workspaceRoot}/src/chip8/*"
+      }
+    }
+  ]
+}

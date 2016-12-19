@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "declaration": true,
+    "outDir": "dist",
+    "noEmit": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "lib": [
+      "es2015",
+      "dom",
+      "webworker"
+    ],
+    "rootDir": "src"
+  },
+  "files": [
+    "src/chip8.ts",
+    "src/index.ts"
+  ]
+}
