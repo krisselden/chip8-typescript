@@ -219,8 +219,7 @@ export default function createOperations(vm: VirtualMachine): Operations {
 
     let { x, byte } = opcode;
 
-    let rand = (Math.random() * 0x100) | 0xFF;
-    V[x] = rand & byte;
+    V[x] = (Math.random() * 0x100) & byte;
   }
 
   // Dxyn - DRW Vx, Vy, nibble
