@@ -189,4 +189,39 @@ void main()
   interface Drawable {
     draw(program: WebGLProgram): void;
   }
+
+  const KEY_MAP: {
+    [charCode: number]: number | undefined
+  } = {
+    88: 0x0,
+    49: 0x1,
+    50: 0x2,
+    51: 0x3,
+    81: 0x4,
+    87: 0x5,
+    69: 0x6,
+    65: 0x7,
+    83: 0x8,
+    68: 0x9,
+    90: 0xA,
+    67: 0xB,
+    52: 0xC,
+    82: 0xD,
+    70: 0xE,
+    86: 0xF
+  }
+
+  window.onkeydown = function (evt) {
+    let key = KEY_MAP[evt.keyCode];
+    if (key !== undefined) {
+      worker.postMessage({ cmd: "keydown", key });
+    }
+  };
+
+  window.onkeyup = function (evt) {
+    let key = KEY_MAP[evt.keyCode];
+    if (key !== undefined) {
+      worker.postMessage({ cmd: "keyup", key });
+    }
+  };
 }());

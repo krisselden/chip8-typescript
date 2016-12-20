@@ -31,8 +31,10 @@ onmessage = function(msg: MessageEvent) {
       readROMFile(msg.data.rom);
       break;
     case "keydown":
+      vm.keyDown(msg.data.key);
       break;
     case "keyup":
+      vm.keyUp(msg.data.key);
       break;
   }
 }
