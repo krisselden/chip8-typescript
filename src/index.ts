@@ -1,3 +1,7 @@
+declare var webkitAudioContext: {
+  new (): AudioContext;
+};
+
 (function () {
   "use strict";
   const canvas = document.getElementById("screen") as HTMLCanvasElement;
@@ -117,7 +121,7 @@ void main()
   }
   requestAnimationFrame(render);
 
-  const audioCtx = new AudioContext();
+  const audioCtx = typeof AudioContext !== "undefined" ? new AudioContext() : <AudioContext>new webkitAudioContext();
   let oscillator: OscillatorNode | undefined;
   worker.onmessage = function (msg) {
     switch (msg.data.cmd) {
