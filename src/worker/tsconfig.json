@@ -4,19 +4,17 @@
     "moduleResolution": "node",
     "target": "es2015",
     "declaration": true,
-    "outDir": "dist",
+    "outDir": "../../dist/worker",
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "sourceMap": true,
     "noEmit": true,
     "lib": [
       "es2015",
-      "dom"
-    ],
-    "rootDir": "src"
+      "webworker"
+    ]
   },
   "files": [
-    "src/index.ts"
+    "chip8.ts"
   ]
 }

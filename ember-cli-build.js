@@ -11,11 +11,12 @@ var SOURCE_MAPPING_DATA_URL = '//# sourceMap';
 SOURCE_MAPPING_DATA_URL += 'pingURL=data:application/json;base64,';
 
 module.exports = function () {
-  var src = new MergeTrees([new Funnel(path.dirname(require.resolve('typescript/lib/lib.webworker.d.ts')), {
-    include: ["lib.*.d.ts"]
-  }), "src"]);
-  var compiled = typescript(src, {
-    annotation: 'compile chip8.ts',
+  var types = new Funnel(path.dirname(require.resolve('typescript/lib/lib.d.ts')), {
+    include: ["lib*.d.ts"]
+  });
+  var src = new MergeTrees([types, "src"]);
+  var index = typescript(src, {
+    annotation: 'compile index.ts',
     tsconfig: {
       compilerOptions: {
         module: "es2015",
@@ -29,26 +30,50 @@ module.exports = function () {
       files: [
         "lib.es2015.d.ts",
         "lib.dom.d.ts",
-        "lib.webworker.d.ts",
-        "chip8.ts",
         "index.ts"
       ]
     }
   });
+  var worker = typescript(src, {
+    annotation: 'compile chip8.ts',
+    tsconfig: {
+      compilerOptions: {
+        module: "es2015",
+        moduleResolution: "node",
+        target: "es2015",
+        declaration: true,
+        strictNullChecks: true,
+        inlineSourceMap: true,
+        inlineSources: true
+      },
+      files: [
+        "lib.es2015.d.ts",
+        "lib.webworker.d.ts",
+        "worker/chip8.ts"
+      ]
+    }
+  });
   return new MergeTrees([
-    new Funnel(compiled, {
-      include: ['**/*.d.ts', "index.js"]
-    }),
     new Funnel("src", {
       include: ['index.html']
     }),
-    new Rollup(compiled, {
-      annotation: 'chip8.js',
+    new Rollup(index, {
+      annotation: 'index.js',
       rollup: {
-        entry: 'chip8.js',
+        entry: 'index.js',
         plugins: [ loadWithInlineMap(), buble() ],
         sourceMap: true,
-        dest: 'chip8.js',
+        dest: 'index.js',
+        format: 'iife'
+      }
+    }),
+    new Rollup(worker, {
+      annotation: 'worker/chip8.js',
+      rollup: {
+        entry: 'worker/chip8.js',
+        plugins: [ loadWithInlineMap(), buble() ],
+        sourceMap: true,
+        dest: 'worker/chip8.js',
         format: 'iife'
       }
     })

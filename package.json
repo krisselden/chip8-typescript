@@ -10,7 +10,7 @@
     "typescript": "next"
   },
   "scripts": {
-    "tsc": "tsc",
+    "tsc": "tsc -p . && tsc -p src/worker/",
     "build": "ember build",
     "start": "ember serve"
   },

@@ -4,7 +4,7 @@
   const input = document.querySelector('input[type="file"]') as HTMLInputElement;
   const gl = getWebGLContext(canvas);
   if (gl == null) return;
-  const worker = new Worker("chip8.js");
+  const worker = new Worker("worker/chip8.js");
 
   class Quad implements Drawable {
     buffer: WebGLBuffer;
