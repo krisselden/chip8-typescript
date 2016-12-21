@@ -1,5 +1,6 @@
 import { SIZE } from "./constants";
-import createProgramCounter, { OpCode, ProgramCounter } from "./program_counter";
+import { OpCode, ProgramCounter } from "./interface";
+import createProgramCounter from "./program_counter";
 
 export interface VirtualMachine {
   RAM: Uint8Array;

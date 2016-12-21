@@ -1,5 +1,4 @@
 import { SIZE, FONT, OFFSET} from "./constants";
-import createProgramCounter, { ProgramCounter } from "./program_counter";
 import createOperations, { Operations, VirtualMachine } from "./operations";
 
 export interface VirtualMachineOuput {
