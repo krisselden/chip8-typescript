@@ -53,7 +53,6 @@ class ProgramCounter {
     let hi = this.RAM[this.pc] << 8;
     let lo = this.RAM[this.pc + 1];
     this.opcode.raw = hi | lo;
-    // console.log(raw);
     this.pc += 2;
     return this.opcode;
   }
