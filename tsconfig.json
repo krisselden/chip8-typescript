@@ -16,7 +16,8 @@
     ],
     "rootDir": "src"
   },
-  "files": [
+  "include": [
+    "src/host/**/*.ts",
     "src/index.ts"
   ]
 }

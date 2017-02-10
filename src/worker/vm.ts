@@ -77,7 +77,7 @@ export default function createVirtualMachine(delegate: VirtualMachineOuput): Vir
   function resume() {
     lastTick = Date.now();
     cycleCount = 0;
-    interval = setInterval(tick, 10);
+    interval = setInterval(tick, 5);
     paused = false;
   }
 

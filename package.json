@@ -4,10 +4,10 @@
     "broccoli-merge-trees": "^1.2.1",
     "broccoli-rollup": "^1.0.3",
     "broccoli-typescript-compiler": "^1.0.1",
-    "ember-cli": "^2.10.0",
+    "ember-cli": "^2.11.0",
     "rollup-plugin-buble": "^0.15.0",
     "tslint": "next",
-    "typescript": "next"
+    "typescript": "^2.1.6"
   },
   "scripts": {
     "tsc": "tsc -p . && tsc -p src/worker/",
