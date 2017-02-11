@@ -38,46 +38,60 @@ export default function createVirtualMachine(delegate: VirtualMachineOuput): Vir
 
   let lastTick: number;
   let cycleCount: number;
+  let idealCount: number;
 
+  let soundOn = false;
   let paused = false;
+  let start = Date.now();
 
-  function tick() {
-    let elapsed = Date.now() - lastTick;
-    let cyclesPerTick = (elapsed * 600 / 1000) | 0;
-    for (let i = 0; i < cyclesPerTick; i++) {
-      if (paused) break;
-      cycleCount++;
-      let previous = vm.soundTimer;
-      operations.execOp();
-      if (cycleCount % 10 === 0) {
-        if (vm.delayTimer > 0) {
-          vm.delayTimer--;
+  function flush() {
+    while (!paused) {
+      let elapsed = Date.now() - start;
+      // 600hz
+      let idealCycles = (elapsed * 600 / 1000) | 0;
+      if (cycleCount >= idealCycles) {
+        break;
+      }
+
+      for (; cycleCount < idealCycles; cycleCount++) {
+        operations.execOp();
+        if (paused) return;
+
+        // decrement at 60hz
+        if (cycleCount % 10 === 0) {
+          if (vm.delayTimer > 0) {
+            vm.delayTimer--;
+          }
+          if (vm.soundTimer > 0) {
+            vm.soundTimer--;
+          }
         }
         if (vm.soundTimer > 0) {
-          vm.soundTimer--;
-        }
-      }
-      if (previous !== vm.soundTimer) {
-        if (previous === 0) {
-          delegate.startTone();
-        } else if (vm.soundTimer === 0) {
-          delegate.stopTone();
+          if (!soundOn) {
+            soundOn = true;
+            delegate.startTone();
+          }
+        } else {
+          if (soundOn) {
+            soundOn = false;
+            delegate.stopTone();
+          }
         }
       }
     }
-    lastTick = Date.now();
   }
 
   function pause() {
     clearInterval(interval);
     delegate.stopTone();
+    soundOn = false;
     paused = true;
   }
 
   function resume() {
-    lastTick = Date.now();
+    start = Date.now();
     cycleCount = 0;
-    interval = setInterval(tick, 5);
+    interval = setInterval(flush, 16);
     paused = false;
   }
 
@@ -94,6 +108,7 @@ export default function createVirtualMachine(delegate: VirtualMachineOuput): Vir
     },
     keyUp(key) {
       keys[key] = 0;
+      flush();
     },
     keyDown(key) {
       if (waitForKeyCallback) {
@@ -102,6 +117,7 @@ export default function createVirtualMachine(delegate: VirtualMachineOuput): Vir
         resume();
       }
       keys[key] = 1;
+      flush();
     }
   }
 }
