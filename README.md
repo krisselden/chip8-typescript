@@ -2,6 +2,8 @@
 
 A chip8 emulator written in TypeScript.
 
+https://krisselden.github.io/chip8-typescript/
+
 Code is very approachable for learning but optimizes well.
 
 GC does not pause because the heap is simple, largely only used by postMessage. Even a Major GC is < 0.1 ms.
