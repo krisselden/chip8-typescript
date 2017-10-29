@@ -14,7 +14,7 @@ const enum KeyCodes {
   KEY_4 = 52,
   KEY_R = 82,
   KEY_F = 70,
-  KEY_V = 86
+  KEY_V = 86,
 }
 
 export const enum Keys {
@@ -34,7 +34,7 @@ export const enum Keys {
   KEY_C = 0xC,
   KEY_D = 0xD,
   KEY_E = 0xE,
-  KEY_F = 0xF
+  KEY_F = 0xF,
 }
 
 export default function keyFor(keyCode: number): Keys {

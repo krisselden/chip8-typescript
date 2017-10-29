@@ -1,5 +1,5 @@
 import { SIZE } from "./constants";
-import { OpCode, ProgramCounter } from "./interface";
+import { IOpCode, IProgramCounter } from "./interface";
 import createProgramCounter from "./program_counter";
 
 export interface VirtualMachine {
@@ -21,7 +21,7 @@ export interface Operations {
 
 export default function createOperations(vm: VirtualMachine): Operations {
   interface OpTable {
-    [index: number]: (opcode: OpCode) => void;
+    [index: number]: (opcode: IOpCode) => void;
   }
 
   const { RAM, pixels, keys } = vm;

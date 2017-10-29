@@ -1,4 +1,4 @@
-export interface OpCode {
+export interface IOpCode {
   readonly addr: number;
   readonly byte: number;
   readonly hi: number;
@@ -7,10 +7,10 @@ export interface OpCode {
   readonly y: number;
 }
 
-export interface ProgramCounter {
+export interface IProgramCounter {
   jump(addr: number): void;
   push(): void;
   pop(): void;
   skip(): void;
-  next(): OpCode;
+  next(): IOpCode;
 }

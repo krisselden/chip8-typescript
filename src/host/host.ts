@@ -1,6 +1,6 @@
+import Graphics from "./graphics";
 import keyFor, { Keys } from "./key_for";
 import Sound from "./sound";
-import Graphics from "./graphics";
 
 export default class Chip8Host {
   private sound: Sound;
@@ -16,7 +16,7 @@ export default class Chip8Host {
     input.onchange = this.onchange.bind(this);
   }
 
-  onmessage(msg: MessageEvent) {
+  public onmessage(msg: MessageEvent) {
     switch (msg.data.cmd) {
       case "draw":
         this.graphics.draw(msg.data.pixels);
@@ -32,26 +32,33 @@ export default class Chip8Host {
     }
   }
 
-  onchange() {
-    let files = this.input.files;
-    if (!files || files.length === 0) return;
-    let rom = files[0];
+  private onchange() {
+    const files = this.input.files;
+    if (!files || files.length === 0) {
+      return;
+    }
+    const rom = files[0];
     this.worker.postMessage({ cmd: "load", rom });
   }
 
-  onkeydown(evt: KeyboardEvent) {
-    let key = keyFor(evt.keyCode);
-    if (key === Keys.NONE) return;
+  private onkeydown(evt: KeyboardEvent) {
+    const key = keyFor(evt.keyCode);
+    if (key === Keys.NONE) {
+      return;
+    }
     this.worker.postMessage({ cmd: "keydown", key });
   }
 
-  onkeyup(evt: KeyboardEvent) {
-    let key = keyFor(evt.keyCode);
-    if (key === Keys.NONE) return;
+  private onkeyup(evt: KeyboardEvent) {
+    const key = keyFor(evt.keyCode);
+    if (key === Keys.NONE) {
+      return;
+    }
     this.worker.postMessage({ cmd: "keyup", key });
   }
 
-  onerror(evt: ErrorEvent) {
+  private onerror(evt: ErrorEvent) {
+    // tslint:disable-next-line:no-console
     console.error(evt.error);
   }
 }

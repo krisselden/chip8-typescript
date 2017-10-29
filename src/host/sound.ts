@@ -1,24 +1,24 @@
 declare const webkitAudioContext: typeof AudioContext;
-const context = typeof AudioContext !== "undefined" ? new AudioContext() : <AudioContext>new webkitAudioContext();
+const context = typeof AudioContext !== "undefined" ? new AudioContext() : new webkitAudioContext();
 
 export default class Sound {
-  oscillator: OscillatorNode | undefined = undefined;
+  private oscillator: OscillatorNode | undefined = undefined;
 
-  startTone() {
+  public startTone() {
     if (this.oscillator) {
       this.oscillator.stop();
     }
-    let oscillator = this.oscillator = context.createOscillator();
-    oscillator.type = 'square';
+    const oscillator = this.oscillator = context.createOscillator();
+    oscillator.type = "square";
     oscillator.frequency.value = 262;
     oscillator.connect(context.destination);
-    oscillator.start((context.currentTime % 262)/ 1000);
+    oscillator.start((context.currentTime % 262) / 1000);
   }
 
-  stopTone() {
-    let oscillator = this.oscillator;
+  public stopTone() {
+    const oscillator = this.oscillator;
     if (oscillator) {
-      oscillator.stop((context.currentTime % 262)/ 1000);
+      oscillator.stop((context.currentTime % 262) / 1000);
       this.oscillator = undefined;
     }
   }

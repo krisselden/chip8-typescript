@@ -1,55 +1,59 @@
-export interface Drawable {
+export interface IDrawable {
   draw(program: WebGLProgram): void;
 }
 
 export default class Program {
-  program: WebGLProgram;
+  private program: WebGLProgram;
 
   constructor(private gl: WebGLRenderingContext) {
-    let program = gl.createProgram();
-    if (!program) throw new Error("failed to create program");
+    const program = gl.createProgram();
+    if (!program) {
+      throw new Error("failed to create program");
+    }
     this.program = program;
   }
 
-  attachVertexShader(source: string) {
+  public attachVertexShader(source: string) {
     this.attachShader(this.gl.VERTEX_SHADER, source);
   }
 
-  attachFragmentShader(source: string) {
+  public attachFragmentShader(source: string) {
     this.attachShader(this.gl.FRAGMENT_SHADER, source);
   }
 
-  attachShader(type: number, source: string) {
-    let { gl, program } = this;
-    let shader = gl.createShader(type);
-    if (!shader) throw new Error("failed to create shader");
+  public attachShader(type: number, source: string) {
+    const { gl, program } = this;
+    const shader = gl.createShader(type);
+    if (!shader) {
+      throw new Error("failed to create shader");
+    }
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      let log = gl.getShaderInfoLog(shader);
+      const log = gl.getShaderInfoLog(shader);
       throw new Error(log || "compile shader failed");
     }
     gl.attachShader(program, shader);
   }
 
-  link() {
-    let { gl, program } = this;
+  public link() {
+    const { gl, program } = this;
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      let log = gl.getProgramInfoLog(program);
+      const log = gl.getProgramInfoLog(program);
       throw new Error(log || "link program failed");
     }
   }
 
-  draw(drawable: Drawable) {
+  public draw(drawable: IDrawable) {
     drawable.draw(this.program);
   }
 
-  uniformLocation(name: string) {
+  public uniformLocation(name: string) {
     return this.gl.getUniformLocation(this.program, name);
   }
 
-  attributeLocation(name: string) {
+  public attributeLocation(name: string) {
     return this.gl.getAttribLocation(this.program, name);
   }
 }

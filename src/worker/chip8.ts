@@ -4,28 +4,28 @@ const vm = createVirtualMachine({
   draw(pixels) {
     postMessage({
       cmd: "draw",
-      pixels
+      pixels,
     });
   },
   startTone() {
     postMessage({
-      cmd: "startTone"
+      cmd: "startTone",
     });
   },
   stopTone() {
     postMessage({
-      cmd: "stopTone"
+      cmd: "stopTone",
     });
-  }
+  },
 });
 
 function readROMFile(file: File) {
-  let reader = new FileReaderSync();
-  let buffer = reader.readAsArrayBuffer(file);
+  const reader = new FileReaderSync();
+  const buffer = reader.readAsArrayBuffer(file);
   vm.loadROM(new Uint8Array(buffer));
 }
 
-onmessage = function(msg: MessageEvent) {
+onmessage = (msg: MessageEvent) => {
   switch (msg.data.cmd) {
     case "load":
       readROMFile(msg.data.rom);
@@ -37,4 +37,4 @@ onmessage = function(msg: MessageEvent) {
       vm.keyUp(msg.data.key);
       break;
   }
-}
+};

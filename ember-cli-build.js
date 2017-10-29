@@ -4,54 +4,25 @@ var Rollup = require('broccoli-rollup');
 var Funnel = require('broccoli-funnel');
 var MergeTrees = require('broccoli-merge-trees');
 var typescript = require('broccoli-typescript-compiler').typescript;
-var buble = require('rollup-plugin-buble');
 var fs = require('fs');
 
 var SOURCE_MAPPING_DATA_URL = '//# sourceMap';
 SOURCE_MAPPING_DATA_URL += 'pingURL=data:application/json;base64,';
 
 module.exports = function () {
-  var types = new Funnel(path.dirname(require.resolve('typescript/lib/lib.d.ts')), {
-    include: ["lib*.d.ts"]
+  const src = new Funnel("src", {
+    destDir: "src"
   });
-  var src = new MergeTrees([types, "src"]);
-  var index = typescript(src, {
+  const index = typescript(src, {
     annotation: 'compile index.ts',
-    tsconfig: {
-      compilerOptions: {
-        module: "es2015",
-        moduleResolution: "node",
-        target: "es2015",
-        declaration: true,
-        strictNullChecks: true,
-        inlineSourceMap: true,
-        inlineSources: true
-      },
-      files: [
-        "lib.es2015.d.ts",
-        "lib.dom.d.ts",
-        "index.ts"
-      ]
-    }
+    rootPath: __dirname,
+    buildPath: 'dist',
   });
-  var worker = typescript(src, {
+  const worker = typescript(src, {
     annotation: 'compile chip8.ts',
-    tsconfig: {
-      compilerOptions: {
-        module: "es2015",
-        moduleResolution: "node",
-        target: "es2015",
-        declaration: true,
-        strictNullChecks: true,
-        inlineSourceMap: true,
-        inlineSources: true
-      },
-      files: [
-        "lib.es2015.d.ts",
-        "lib.webworker.d.ts",
-        "worker/chip8.ts"
-      ]
-    }
+    rootPath: __dirname,
+    buildPath: 'dist',
+    tsconfig: 'src/worker/tsconfig.json'
   });
   return new MergeTrees([
     new Funnel("src", {
@@ -61,7 +32,7 @@ module.exports = function () {
       annotation: 'index.js',
       rollup: {
         entry: 'index.js',
-        plugins: [ loadWithInlineMap(), buble() ],
+        plugins: [ loadWithInlineMap() ],
         sourceMap: true,
         dest: 'index.js',
         format: 'iife'
@@ -71,7 +42,7 @@ module.exports = function () {
       annotation: 'worker/chip8.js',
       rollup: {
         entry: 'worker/chip8.js',
-        plugins: [ loadWithInlineMap(), buble() ],
+        plugins: [ loadWithInlineMap() ],
         sourceMap: true,
         dest: 'worker/chip8.js',
         format: 'iife'

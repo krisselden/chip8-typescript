@@ -6,11 +6,11 @@ export const enum SIZE {
   FONT_WIDTH =    0x5,
   SCREEN_WIDTH =  0x40,
   SCREEN_HEIGHT = 0x20,
-  SCREEN_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT
+  SCREEN_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT,
 }
 
 export const enum OFFSET {
-  PROGRAM_START = 0x200
+  PROGRAM_START = 0x200,
 }
 
 export const FONT = new Uint8Array([
@@ -109,5 +109,5 @@ export const FONT = new Uint8Array([
   0b10000000,
   0b11110000,
   0b10000000,
-  0b10000000
+  0b10000000,
 ]);

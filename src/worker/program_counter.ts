@@ -2,7 +2,7 @@ import { OFFSET, SIZE } from "./constants";
 import * as t from "./interface";
 
 class Opcode {
-  raw = 0;
+  public raw = 0;
 
   get addr() {
     return (this.raw & 0x0FFF);
@@ -24,40 +24,41 @@ class Opcode {
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 class ProgramCounter {
-  pc = OFFSET.PROGRAM_START;
-  sp = 0;
-  stack = new Uint16Array(SIZE.STACK_SIZE);
-  opcode = new Opcode();
+  private pc = OFFSET.PROGRAM_START;
+  private sp = 0;
+  private stack = new Uint16Array(SIZE.STACK_SIZE);
+  private opcode = new Opcode();
 
   constructor(private RAM: Uint8Array) {
   }
 
-  jump(addr: number) {
+  public jump(addr: number) {
     this.pc = addr;
   }
 
-  push() {
+  public push() {
     this.stack[this.sp++] = this.pc;
   }
 
-  pop() {
+  public pop() {
     this.pc = this.stack[--this.sp];
   }
 
-  skip() {
+  public skip() {
     this.pc += 2;
   }
 
-  next(): t.OpCode {
-    let hi = this.RAM[this.pc] << 8;
-    let lo = this.RAM[this.pc + 1];
+  public next(): t.IOpCode {
+    const hi = this.RAM[this.pc] << 8;
+    const lo = this.RAM[this.pc + 1];
     this.opcode.raw = hi | lo;
     this.pc += 2;
     return this.opcode;
   }
 }
 
-export default function createProgramCounter(RAM: Uint8Array): t.ProgramCounter {
+export default function createProgramCounter(RAM: Uint8Array): t.IProgramCounter {
   return new ProgramCounter(RAM);
 }
