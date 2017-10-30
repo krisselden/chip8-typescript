@@ -10,7 +10,7 @@
     "tsc": "tsc -p . && tsc -p src/worker",
     "build": "ember build",
     "start": "ember serve",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json && tslint -p src/worker/tsconfig.json"
   },
   "name": "chip8-typescript",
   "version": "1.0.0",

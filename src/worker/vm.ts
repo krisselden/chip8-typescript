@@ -1,5 +1,5 @@
 import { FONT, OFFSET, SIZE } from "./constants";
-import createOperations, { Operations, VirtualMachine } from "./operations";
+import createOperations, { IOperations, IVirtualMachine } from "./operations";
 
 export interface IVirtualMachineOuput {
   draw(pixels: Uint8Array): void;
@@ -17,7 +17,7 @@ export default function createVirtualMachine(delegate: IVirtualMachineOuput): IV
   const RAM = new Uint8Array(SIZE.RAM_SIZE);
   const pixels = new Uint8Array(SIZE.SCREEN_SIZE);
   const keys = new Uint8Array(SIZE.KEY_SIZE);
-  const vm: VirtualMachine = {
+  const vm: IVirtualMachine = {
     RAM,
     pixels,
     draw() {
@@ -35,7 +35,7 @@ export default function createVirtualMachine(delegate: IVirtualMachineOuput): IV
 
   let waitForKeyCallback: ((key: number) => void) | undefined;
   let interval: number;
-  let operations: Operations;
+  let operations: IOperations;
 
   let cycleCount: number;
 
