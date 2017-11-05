@@ -1,0 +1,227 @@
+{
+  "FX1E": {
+    "op": "ADD   I, VX",
+    "target": "CHIP8",
+    "desc": "Set I = I + VX"
+  },
+  "7XKK": {
+    "op": "ADD   VX, Byte",
+    "target": "CHIP8",
+    "desc": "Set VX = VX + Byte"
+  },
+  "8XY4": {
+    "op": "ADD   VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VX + VY, VF = carry"
+  },
+  "8XY2": {
+    "op": "AND   VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VX & VY, VF updates"
+  },
+  "2NNN": {
+    "op": "CALL  Addr",
+    "target": "CHIP8",
+    "desc": "Call subroutine at Addr (16 levels)"
+  },
+  "00E0": {
+    "op": "CLS",
+    "target": "CHIP8",
+    "desc": "Clear display"
+  },
+  "DXYN": {
+    "op": "DRW   VX, VY, Nibble",
+    "target": "CHIP8",
+    "desc": "Draw Nibble byte sprite stored at [I] at VX, VY. Set VF = collision"
+  },
+  "DXY0": {
+    "op": "DRW   VX, VY, 0",
+    "target": "SCHIP10",
+    "desc": "Draw extended sprite stored at [I] at VX, VY. Set VF = collision"
+  },
+  "00FD": {
+    "op": "EXIT",
+    "target": "SCHIP10",
+    "desc": "Terminate the interpreter"
+  },
+  "00FF": {
+    "op": "HIGH",
+    "target": "SCHIP10",
+    "desc": "Enable extended screen mode"
+  },
+  "1NNN": {
+    "op": "JP    Addr",
+    "target": "CHIP8",
+    "desc": "Jump to Addr"
+  },
+  "BNNN": {
+    "op": "JP    V0, Addr",
+    "target": "CHIP8",
+    "desc": "Jump to Addr + V0"
+  },
+  "FX33": {
+    "op": "LD    B, VX",
+    "target": "CHIP8",
+    "desc": "Store BCD of VX in [I], [I+1], [I+2]"
+  },
+  "FX15": {
+    "op": "LD    DT, VX",
+    "target": "CHIP8",
+    "desc": "Set delaytimer = VX"
+  },
+  "FX29": {
+    "op": "LD    F, VX",
+    "target": "CHIP8",
+    "desc": "Point I to 5 byte numeric sprite for value in VX"
+  },
+  "FX30": {
+    "op": "LD    HF, VX",
+    "target": "SCHIP10",
+    "desc": "Point I to 10 byte numeric sprite for value in VX"
+  },
+  "ANNN": {
+    "op": "LD    I, Addr",
+    "target": "CHIP8",
+    "desc": "Set I = Addr"
+  },
+  "FX75": {
+    "op": "LD    R, VX",
+    "target": "SCHIP10",
+    "desc": "Store V0 .. VX in RPL user flags. Only V0 .. V7 valid"
+  },
+  "FX18": {
+    "op": "LD    ST, VX",
+    "target": "CHIP8",
+    "desc": "Set soundtimer = VX"
+  },
+  "6XKK": {
+    "op": "LD    VX, Byte",
+    "target": "CHIP8",
+    "desc": "Set VX = Byte"
+  },
+  "FX07": {
+    "op": "LD    VX, DT",
+    "target": "CHIP8",
+    "desc": "Set VX = delaytimer"
+  },
+  "FX0A": {
+    "op": "LD    VX, K",
+    "target": "CHIP8",
+    "desc": "Set VX = key, wait for keypress"
+  },
+  "FX85": {
+    "op": "LD    VX, R",
+    "target": "SCHIP10",
+    "desc": "Read V0 .. VX from RPL user flags. Only V0 .. V7 valid"
+  },
+  "8XY0": {
+    "op": "LD    VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VY, VF updates"
+  },
+  "FX65": {
+    "op": "LD    VX, [I]",
+    "target": "CHIP8",
+    "desc": "Read V0 .. VX from [I] .. [I+X]"
+  },
+  "FX55": {
+    "op": "LD    [I], VX",
+    "target": "CHIP8",
+    "desc": "Store V0 .. VX in [I] .. [I+X]"
+  },
+  "00FE": {
+    "op": "LOW",
+    "target": "SCHIP10",
+    "desc": "Disable extended screen mode"
+  },
+  "8XY1": {
+    "op": "OR    VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VX | VY, VF updates"
+  },
+  "00EE": {
+    "op": "RET",
+    "target": "CHIP8",
+    "desc": "Return from subroutine (16 levels)"
+  },
+  "CXKK": {
+    "op": "RND   VX , Byte",
+    "target": "CHIP8",
+    "desc": "Set VX = random & Byte"
+  },
+  "00CN": {
+    "op": "SCD   Nibble",
+    "target": "SCHIP11",
+    "desc": "Scroll screen Nibble lines down"
+  },
+  "00FC": {
+    "op": "SCL",
+    "target": "SCHIP11",
+    "desc": "Scroll screen 4 pixels left"
+  },
+  "00FB": {
+    "op": "SCR",
+    "target": "SCHIP11",
+    "desc": "Scroll screen 4 pixels right"
+  },
+  "3XKK": {
+    "op": "SE    VX, Byte",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if VX == Byte"
+  },
+  "5XY0": {
+    "op": "SE    VX, VY",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if VX == VY"
+  },
+  "8XYE": {
+    "op": "SHL   VX {, VY}",
+    "target": "CHIP8",
+    "desc": "Set VX = VX << 1, VF = carry"
+  },
+  "8XY6": {
+    "op": "SHR   VX {, VY}",
+    "target": "CHIP8",
+    "desc": "Set VX = VX >> 1, VF = carry"
+  },
+  "EX9E": {
+    "op": "SKP   VX",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if key VX down"
+  },
+  "EXA1": {
+    "op": "SKNP  VX",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if key VX up"
+  },
+  "4XKK": {
+    "op": "SNE   VX, Byte",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if VX != Byte"
+  },
+  "9XY0": {
+    "op": "SNE   VX, VY",
+    "target": "CHIP8",
+    "desc": "Skip next instruction if VX != VY"
+  },
+  "8XY5": {
+    "op": "SUB   VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VX - VY, VF = !borrow"
+  },
+  "8XY7": {
+    "op": "SUBN  VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VY - VX, VF = !borrow"
+  },
+  "0NNN": {
+    "op": "SYS   Addr",
+    "target": "CHIP8",
+    "desc": "Call CDP1802 code at Addr. This is not implemented on emulators"
+  },
+  "8XY3": {
+    "op": "XOR   VX, VY",
+    "target": "CHIP8",
+    "desc": "Set VX = VX ^ VY, VF updates"
+  }
+}

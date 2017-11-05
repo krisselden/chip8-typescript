@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "declaration": true,
+    "outDir": "../../dist/generator",
+    "strict": true,
+    "noEmit": true,
+    "types": [
+      "node",
+      "qunit"
+    ]
+  },
+  "files": [
+    "index.ts",
+    "test.ts"
+  ]
+}

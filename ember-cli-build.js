@@ -11,7 +11,7 @@ SOURCE_MAPPING_DATA_URL += 'pingURL=data:application/json;base64,';
 
 module.exports = function () {
   const src = new Funnel("src", {
-    destDir: "src"
+    destDir: "src",
   });
   const index = typescript(src, {
     annotation: 'compile index.ts',
@@ -22,11 +22,17 @@ module.exports = function () {
     annotation: 'compile chip8.ts',
     rootPath: __dirname,
     buildPath: 'dist',
-    tsconfig: 'src/worker/tsconfig.json'
+    tsconfig: 'src/worker/tsconfig.json',
+  });
+  const generator = typescript(src, {
+    annotation: 'compile generator.ts',
+    rootPath: __dirname,
+    buildPath: 'dist',
+    tsconfig: 'src/generator/tsconfig.json',
   });
   return new MergeTrees([
     new Funnel("src", {
-      include: ['index.html']
+      include: ['index.html'],
     }),
     new Rollup(index, {
       annotation: 'index.js',
@@ -35,7 +41,7 @@ module.exports = function () {
         plugins: [ loadWithInlineMap() ],
         sourceMap: true,
         dest: 'index.js',
-        format: 'iife'
+        format: 'iife',
       }
     }),
     new Rollup(worker, {
@@ -45,11 +51,12 @@ module.exports = function () {
         plugins: [ loadWithInlineMap() ],
         sourceMap: true,
         dest: 'worker/chip8.js',
-        format: 'iife'
+        format: 'iife',
       }
-    })
+    }),
+    generator,
   ], {
-    annotation: 'dist'
+    annotation: 'dist',
   });
 };
 

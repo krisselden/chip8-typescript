@@ -34,7 +34,7 @@ export default function createVirtualMachine(delegate: IVirtualMachineOuput): IV
   };
 
   let waitForKeyCallback: ((key: number) => void) | undefined;
-  let interval: number;
+  let interval: any;
   let operations: IOperations;
 
   let cycleCount: number;
